@@ -1,0 +1,956 @@
+/*
+Theme Name: Tesla
+Author: yvandevelde
+Version: 2020.1
+
+*/
+@font-face {
+  font-family: "PTSans-Regular";
+  src: url("/dist/fonts/PTSans-Regular.woff") format("woff"), url("/dist/fonts/PTSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "PTSans-Italic";
+  src: url("/dist/fonts/PTSans-Italic.woff") format("woff"), url("/dist/fonts/PTSans-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "PTSans-Bold";
+  src: url("/dist/fonts/PTSans-Bold.woff") format("woff"), url("/dist/fonts/PTSans-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+}
+
+#debug {
+  width: 300px;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background-color: #814e0b;
+  padding: 40px 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 5px;
+  z-index: 10000;
+}
+
+@-webkit-keyframes stroke-anim {
+  from {
+    stroke-dashoffset: 201 !important;
+  }
+  to {
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+@keyframes stroke-anim {
+  from {
+    stroke-dashoffset: 201 !important;
+  }
+  to {
+    stroke-dashoffset: 0 !important;
+  }
+}
+
+@-webkit-keyframes blinking {
+  from {
+    fill: #0082ff;
+  }
+  to {
+    fill: #202020;
+  }
+}
+
+@keyframes blinking {
+  from {
+    fill: #0082ff;
+  }
+  to {
+    fill: #202020;
+  }
+}
+
+@-webkit-keyframes pulse {
+  from {
+    -webkit-transform: scale(0) translate(-50%, -50%);
+            transform: scale(0) translate(-50%, -50%);
+  }
+  to {
+    -webkit-transform: scale(1) translate(-50%, -50%);
+            transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+@keyframes pulse {
+  from {
+    -webkit-transform: scale(0) translate(-50%, -50%);
+            transform: scale(0) translate(-50%, -50%);
+  }
+  to {
+    -webkit-transform: scale(1) translate(-50%, -50%);
+            transform: scale(1) translate(-50%, -50%);
+  }
+}
+
+@-webkit-keyframes disapear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes disapear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "PTSans-Regular";
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-color: #000;
+  background-image: url("./img/Pattern.svg");
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Tree .schema {
+  width: 100%;
+}
+
+.Tree .circle {
+  border: solid 2px #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #01203e;
+  -webkit-box-shadow: 0px 0px 200px 25px #ff3c00;
+          box-shadow: 0px 0px 200px 25px #ff3c00;
+}
+
+.Tree .icon path {
+  fill: #202020;
+}
+
+.Tree .network {
+  width: 100vw;
+}
+
+.Tree .branch {
+  stroke: #fff;
+}
+
+.Tree .branch .disable {
+  stroke: #202020;
+}
+
+.Tree .node {
+  opacity: 1;
+}
+
+.Tree .node .text {
+  opacity: 0;
+  -webkit-transition: .5s ease;
+  transition: .5s ease;
+}
+
+.Tree .node .text.active {
+  opacity: 1;
+}
+
+.Tree .node[inventor*="Tesla"] .text-main,
+.Tree .node[inventor*="Tesla"] .text-sub {
+  fill: #0082ff !important;
+  text-shadow: 0px 0px 30px #0082ff;
+}
+
+.Tree .node[inventor*="Tesla"] .text-main {
+  text-shadow: 0px 0px 30px #0082ff;
+  font-family: "Hind Vadodara", sans-serif;
+}
+
+.Tree .node[inventor*="Westinghouse"] .text-main,
+.Tree .node[inventor*="Westinghouse"] .text-sub {
+  fill: #9a0fdb !important;
+}
+
+.Tree .node[inventor*="Westinghouse"] .text-main {
+  text-shadow: 0px 0px 30px #9a0fdb;
+  font-family: "Hind Vadodara", sans-serif;
+}
+
+.Tree .node[inventor*="Edison"] .text-main,
+.Tree .node[inventor*="Edison"] .text-sub {
+  fill: #ff3c00 !important;
+}
+
+.Tree .node[inventor*="Edison"] .text-main {
+  text-shadow: 0px 0px 30px #ff3c00;
+  font-family: "Hind Vadodara", sans-serif;
+}
+
+.Tree .node.hidden {
+  opacity: 0;
+}
+
+.Tree .node .filter {
+  opacity: 0;
+}
+
+.Tree .node .circle {
+  stroke: #202020;
+  fill: #000;
+}
+
+.Tree .node path {
+  stroke: #202020;
+  fill: #202020;
+}
+
+.Tree .node.active {
+  opacity: 1;
+}
+
+.Tree .node.active .filter {
+  opacity: 1;
+}
+
+.Tree .node.active .circle {
+  stroke: #fff;
+  fill: #000;
+}
+
+.Tree .node.active path {
+  stroke: #fff;
+  fill: #fff;
+}
+
+.Tree .node.starter_end {
+  opacity: 0 !important;
+}
+
+.Tree .node.starter_end .filter {
+  opacity: 0 !important;
+}
+
+.Tree .node.starter_end .circle {
+  stroke: #fff;
+  fill: #000;
+}
+
+.Tree .node.starter_end path {
+  stroke: #fff;
+  fill: #fff;
+}
+
+.Tree #_cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  -webkit-transition: 0.3s linear;
+  transition: 0.3s linear;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.Tree #_cursor::after {
+  content: "";
+  border: solid 4px #ff3c00;
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
+  width: 95%;
+  height: 95%;
+  position: absolute;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.Tree #_cursor svg {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.Tree #_cursor svg circle {
+  stroke: #ff3c00 !important;
+  stroke-width: 2px;
+  stroke-dasharray: 201 !important;
+  stroke-dashoffset: 201 !important;
+}
+
+.Tree #_cursor.magnet circle {
+  -webkit-transition: 1.5s ease 1.2s;
+  transition: 1.5s ease 1.2s;
+  stroke-dashoffset: 0 !important;
+}
+
+.Tree #_cursor.wrong {
+  -webkit-transition: 1s ease;
+  transition: 1s ease;
+}
+
+.Tree #_cursor.wrong::after {
+  border: solid 4px #fff;
+}
+
+.Tree .gif {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+}
+
+.Motor {
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.Motor::after {
+  content: "";
+  background-image: url("./Pattern.svg");
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.controls {
+  color: #fff;
+  font-size: 60px;
+  line-height: 66px;
+  font-weight: 700;
+}
+
+.content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+}
+
+.content .dots {
+  position: absolute;
+  top: -30px;
+  left: 10px;
+}
+
+.content .dots circle {
+  fill: #202020;
+  position: relative;
+}
+
+.content .dots circle.dot1 {
+  -webkit-animation: 0.5s 0s infinite blinking;
+          animation: 0.5s 0s infinite blinking;
+}
+
+.content .dots circle.dot2 {
+  -webkit-animation: 0.5s 0.33s infinite blinking;
+          animation: 0.5s 0.33s infinite blinking;
+}
+
+.content .dots circle.dot3 {
+  -webkit-animation: 0.5s 0.66s infinite blinking;
+          animation: 0.5s 0.66s infinite blinking;
+}
+
+#_spinner {
+  margin: 0;
+}
+
+#_pulse {
+  width: 620px;
+  height: 619px;
+  border: 7px solid #0082ff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 0px 0px 20px 5px #0082ff;
+          box-shadow: 0px 0px 20px 5px #0082ff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  -webkit-transform: scale(0) translate(-50%, -50%);
+          transform: scale(0) translate(-50%, -50%);
+  -webkit-transform-origin: center;
+          transform-origin: center;
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
+}
+
+#_pulse.pulsed {
+  -webkit-animation: pulse 1.8s ease forwards, disapear 0.3s ease 1.8s forwards;
+          animation: pulse 1.8s ease forwards, disapear 0.3s ease 1.8s forwards;
+}
+
+#plus {
+  position: fixed;
+  top: 10px;
+  z-index: 99999999999999;
+}
+
+.finalAnimation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.connection {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#_testMap {
+  border: solid 2px #fff;
+}
+
+.text {
+  font-size: 20px;
+}
+
+.text-main {
+  text-transform: uppercase;
+}
+
+.Details {
+  position: fixed;
+  top: 100vh;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.Details-container.westinghouse::before {
+  background-image: url("./img/Blur-violet.png");
+}
+
+.Details-container.westinghouse strong {
+  color: #9a0fdb;
+}
+
+.Details-container.tesla::before {
+  background-image: url("./img/Blur-blue.png");
+}
+
+.Details-container.tesla strong {
+  color: #0082ff;
+}
+
+.Details-container.edison::before {
+  background-image: url("./img/Blur-red.png");
+}
+
+.Details-container.edison strong {
+  color: #ff3c00;
+}
+
+.Details-container::before {
+  content: "";
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  left: 0;
+}
+
+.Details-list {
+  z-index: 3;
+}
+
+.Details-listing {
+  padding: 100px 40px 150px;
+}
+
+.Details-content {
+  width: 1440px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: relative;
+}
+
+.Details-content.citation {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Details-content.title_text {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Details-title {
+  color: #fff;
+  letter-spacing: 10px;
+  text-shadow: 0px 0px 60px #fff;
+  font-size: 46px;
+  text-transform: uppercase;
+  font-family: "Hind Vadodara", sans-serif;
+}
+
+.title_text .Details-title {
+  margin: 0 250px 0 0;
+}
+
+.Details-text {
+  font-family: "PTSans-Regular";
+  color: #fff;
+  font-size: 24px;
+  width: 480px;
+}
+
+.title_text .Details-text {
+  margin: 50px 0 0 250px;
+  width: 720px;
+}
+
+.Details-text strong {
+  font-family: "PTSans-Bold";
+  font-weight: 700;
+}
+
+.Details-instructions {
+  z-index: -1;
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "PTSans-Regular";
+  color: #fff;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.Details-instructions img {
+  width: 120px;
+  height: 120px;
+}
+
+.Details-autor {
+  font-family: "PTSans-Regular";
+  color: #fff;
+  font-size: 24px;
+  width: auto;
+}
+
+.Details-img {
+  position: absolute;
+  left: 120px;
+  z-index: -1;
+  top: 0;
+  -webkit-transform: translateY(-30%);
+          transform: translateY(-30%);
+  width: 720px;
+  height: 600px;
+}
+
+.image .Details-img {
+  width: 1200px;
+  height: 720px;
+}
+
+.Details-citation {
+  font-family: "PTSans-Italic";
+  color: #fff;
+  text-shadow: 0px 0px 60px #fff;
+  font-size: 46px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.swiper-pagination {
+  width: 3px !important;
+  height: 350px !important;
+  left: 100px !important;
+  bottom: 100px !important;
+  top: auto !important;
+  background-color: rgba(0, 130, 255, 0.2) !important;
+}
+
+.tesla .swiper-pagination-progressbar-fill {
+  background-color: #0082ff !important;
+}
+
+.edison .swiper-pagination-progressbar-fill {
+  background-color: #ff3c00 !important;
+}
+
+.westinghouse .swiper-pagination-progressbar-fill {
+  background-color: #9a0fdb !important;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  background-image: url("./img/Pattern.svg");
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
+.swiper-container.open {
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  opacity: 1;
+}
+
+.swiper-slide {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+/* --------------------------------- */
+/* ---------- Generators ----------- */
+/* --------------------------------- */
+#debugPlus {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
+#tutoDC,
+#tutoAC {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+#tutoDC img,
+#tutoAC img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+#tutoDC.hidden,
+#tutoAC.hidden {
+  opacity: 0;
+}
+
+#bulbContinu {
+  opacity: 0;
+  -webkit-transition: 5s ease;
+  transition: 5s ease;
+}
+
+#bulbContinu.active {
+  opacity: 1 !important;
+}
+
+#bulbAlternatif {
+  opacity: 0;
+  -webkit-transition: 5s ease;
+  transition: 5s ease;
+}
+
+#bulbAlternatif.active {
+  opacity: 1 !important;
+}
+
+.Alternatif {
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Alternatif-container {
+  width: 1320px;
+  height: 600px;
+  background-color: rgba(154, 15, 219, 0.1);
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Alternatif-container::before {
+  content: "";
+  background-image: url("../img/Blur-violet.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Alternatif-content {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transform: translateX(130px);
+          transform: translateX(130px);
+}
+
+.Alternatif-right {
+  height: 360px;
+  width: 480px;
+  padding: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 64px 40px rgba(154, 15, 219, 0.1);
+          box-shadow: 0px 0px 64px 40px rgba(154, 15, 219, 0.1);
+}
+
+.Continue {
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Continue-container {
+  width: 1320px;
+  height: 600px;
+  background-color: rgba(255, 60, 0, 0.1);
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Continue-container::before {
+  content: "";
+  background-image: url("../img/Blur-red.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Continue-content {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transform: translateX(130px);
+          transform: translateX(130px);
+}
+
+.Continue-right {
+  height: 360px;
+  width: 480px;
+  padding: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 64px 40px rgba(255, 60, 0, 0.1);
+          box-shadow: 0px 0px 64px 40px rgba(255, 60, 0, 0.1);
+}
+
+#_barContinue {
+  border: solid 2px #fff;
+  padding: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  position: absolute;
+  width: 720px;
+  height: 20px;
+  top: 110px;
+}
+
+#_progressBarContinue {
+  height: 100%;
+  width: 0px;
+  -webkit-transition: width 1.5s ease;
+  transition: width 1.5s ease;
+  background-color: #fff;
+  position: relative;
+}
+
+#_bar {
+  border: solid 2px #fff;
+  padding: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  position: absolute;
+  width: 720px;
+  height: 20px;
+  top: 110px;
+}
+
+#_progressBar {
+  height: 100%;
+  width: 0px;
+  -webkit-transition: width 1.5s ease;
+  transition: width 1.5s ease;
+  background-color: #fff;
+  position: relative;
+}
+/*# sourceMappingURL=style.css.map */

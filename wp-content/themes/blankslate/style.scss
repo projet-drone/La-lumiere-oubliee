@@ -1,0 +1,860 @@
+/*
+Theme Name: Tesla
+Author: yvandevelde
+Version: 2020.1
+
+*/
+
+@font-face {
+    font-family: "PTSans-Regular";
+    src: url("/dist/fonts/PTSans-Regular.woff") format("woff"), url("/dist/fonts/PTSans-Regular.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "PTSans-Italic";
+    src: url("/dist/fonts/PTSans-Italic.woff") format("woff"), url("/dist/fonts/PTSans-Italic.woff2") format("woff2");
+    font-style: italic;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "PTSans-Bold";
+    src: url("/dist/fonts/PTSans-Bold.woff") format("woff"), url("/dist/fonts/PTSans-Bold.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 700;
+}
+
+// @font-face {
+//     font-family: "HindVadodara-Medium";
+//     src: url("/dist/fonts/HindVadodara-Medium.woff") format("woff"),
+//         url("/dist/fonts/HindVadodara-Medium.woff2") format("woff2");
+//         font-style: normal;
+//         font-weight: 500;
+// }
+
+$color_bg: #000;
+$color_white: #fff;
+$color_black: #000;
+
+$color_blue: #0082ff;
+$color_red: #ff3c00;
+$color_violet: #9a0fdb;
+
+$blue_node: #01203e;
+
+$color_disable: #202020;
+
+#debug {
+    width: 300px;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgb(129, 78, 11);
+    padding: 40px 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-radius: 5px;
+    z-index: 10000;
+}
+
+@keyframes stroke-anim {
+    from {
+        stroke-dashoffset: 201 !important;
+    }
+    to {
+        stroke-dashoffset: 0 !important;
+    }
+}
+
+@keyframes blinking {
+    from {
+        fill: $color_blue;
+    }
+    to {
+        fill: $color_disable;
+    }
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0) translate(-50%, -50%);
+    }
+    to {
+        transform: scale(1) translate(-50%, -50%);
+    }
+}
+@keyframes disapear {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "PTSans-Regular";
+    // cursor: none !important;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-color: $color_bg;
+    background-image: url("./img/Pattern.svg");
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-direction: column;
+}
+
+.Tree {
+    // background-color: blue;
+
+    .schema {
+        width: 100%;
+    }
+
+    .circle {
+        border: solid 2px $color_white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        background-color: $blue_node;
+
+        box-shadow: 0px 0px 200px 25px $color_red;
+
+        &.active {
+        }
+    }
+
+    .icon {
+        path {
+            fill: $color_disable;
+        }
+    }
+
+    .network {
+        width: 100vw;
+    }
+
+    .branch {
+        stroke: $color_white;
+
+        .disable {
+            stroke: $color_disable;
+        }
+    }
+
+    .node {
+        // stroke: $color_disable;
+        // fill: $color_bg;
+
+        opacity: 1;
+
+        .text {
+            opacity: 0;
+            transition: 0.5s ease;
+            &.active {
+                opacity: 1;
+            }
+        }
+
+        &[inventor*="Tesla"] .text-main,
+        &[inventor*="Tesla"] .text-sub {
+            fill: $color_blue !important;
+            text-shadow: 0px 0px 30px $color_blue;
+        }
+
+        &[inventor*="Tesla"] .text-main {
+            text-shadow: 0px 0px 30px $color_blue;
+            font-family: "Hind Vadodara", sans-serif;
+        }
+
+        &[inventor*="Westinghouse"] .text-main,
+        &[inventor*="Westinghouse"] .text-sub {
+            fill: $color_violet !important;
+        }
+        &[inventor*="Westinghouse"] .text-main {
+            text-shadow: 0px 0px 30px $color_violet;
+            font-family: "Hind Vadodara", sans-serif;
+        }
+
+        &[inventor*="Edison"] .text-main,
+        &[inventor*="Edison"] .text-sub {
+            fill: $color_red !important;
+        }
+
+        &[inventor*="Edison"] .text-main {
+            text-shadow: 0px 0px 30px $color_red;
+            font-family: "Hind Vadodara", sans-serif;
+        }
+
+        &.hidden {
+            opacity: 0;
+        }
+
+        & .filter {
+            opacity: 0;
+        }
+
+        & .circle {
+            stroke: $color_disable;
+            fill: $color_bg;
+        }
+
+        & path {
+            stroke: $color_disable;
+            fill: $color_disable;
+        }
+
+        &.active {
+            opacity: 1;
+            & .filter {
+                opacity: 1;
+            }
+
+            & .circle {
+                stroke: $color_white;
+                fill: $color_bg;
+            }
+            & path {
+                stroke: $color_white;
+                fill: $color_white;
+            }
+        }
+        &.starter_end {
+            opacity: 0 !important;
+            & .filter {
+                opacity: 0 !important;
+            }
+
+            & .circle {
+                stroke: $color_white;
+                fill: $color_bg;
+            }
+            & path {
+                stroke: $color_white;
+                fill: $color_white;
+            }
+        }
+    }
+
+    #_cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transition: 0.3s linear;
+
+        // box-shadow: 0px 0px 100px 0px rgba(0,94,255,0.73), inset 0px 0px 10px 0px rgba(0,94,255,0.73);
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+
+        &::after {
+            content: "";
+            border: solid 4px $color_white;
+            filter: blur(4px);
+            width: 95%;
+            height: 95%;
+            position: absolute;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &.Edison {
+            &::after {
+                border: solid 4px $color_red;
+            }
+            circle {
+                stroke: $color_red !important;
+            }
+        }
+        &.Tesla {
+            &::after {
+                border: solid 4px $color_blue;
+            }
+            circle {
+                stroke: $color_blue !important;
+            }
+        }
+        &.Westinghouse {
+            &::after {
+                border: solid 4px $color_violet;
+            }
+            circle {
+                stroke: $color_violet !important;
+            }
+        }
+
+        svg {
+            content: "";
+            // border: solid 1px $color_white;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            // border-radius: 50%;
+
+            circle {
+                stroke-width: 2px;
+                stroke-dasharray: 201 !important;
+                stroke-dashoffset: 201 !important;
+            }
+        }
+
+        &.magnet {
+            // transition: 1s ease;
+
+            circle {
+                transition: 1.5s ease 1.2s;
+                stroke-dashoffset: 0 !important;
+                // animation: stroke-anim 3s ease forwards;
+            }
+        }
+
+        &.wrong {
+            transition: 1s ease;
+            &::after {
+                border: solid 4px $color_white;
+            }
+        }
+    }
+
+    .gif {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 50%;
+    }
+}
+
+.Motor {
+    background-color: $color_bg;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &::after {
+        content: "";
+        background-image: url("./Pattern.svg");
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
+
+.controls {
+    color: $color_white;
+    font-size: 60px;
+    line-height: 66px;
+    font-weight: 700;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    & .dots {
+        position: absolute;
+        top: -30px;
+        left: 10px;
+
+        circle {
+            fill: $color_disable;
+            position: relative;
+
+            &.dot1 {
+                animation: 0.5s 0s infinite blinking;
+            }
+
+            &.dot2 {
+                animation: 0.5s 0.33s infinite blinking;
+            }
+
+            &.dot3 {
+                animation: 0.5s 0.66s infinite blinking;
+            }
+
+            // &::after {
+            //     content:"";
+            //     box-shadow: 0px 0px 15px 5px $color_blue;
+            //     position: absolute;
+            //     top: 0;
+            //     left: 0;
+            //     width: 100%;
+            //     height: 100%;
+            // }
+        }
+    }
+}
+
+#_spinner {
+    margin: 0;
+    // width: 500px;
+    // height: 500px;
+    // border-radius: 50%;
+    // overflow: hidden;
+}
+
+#_pulse {
+    width: 620px;
+    height: 619px;
+    border: 7px solid $color_blue;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 20px 5px $color_blue;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: scale(0) translate(-50%, -50%);
+    transform-origin: center;
+    transform-origin: top left;
+
+    &.pulsed {
+        animation: pulse 1.8s ease forwards, disapear 0.3s ease 1.8s forwards;
+    }
+}
+
+#plus {
+    position: fixed;
+    top: 10px;
+    z-index: 99999999999999;
+}
+
+.finalAnimation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.connection {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#_testMap {
+    border: solid 2px $color_white;
+}
+
+.text {
+    font-size: 20px;
+
+    &-main {
+        text-transform: uppercase;
+    }
+}
+
+.Details {
+    position: fixed;
+    top: 100vh;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+
+    &-container {
+        &.westinghouse {
+            &::before {
+                background-image: url("./img/Blur-violet.png");
+            }
+            strong {
+                color: $color_violet;
+            }
+        }
+        &.tesla {
+            &::before {
+                background-image: url("./img/Blur-blue.png");
+            }
+            strong {
+                color: $color_blue;
+            }
+        }
+        &.edison {
+            &::before {
+                background-image: url("./img/Blur-red.png");
+            }
+            strong {
+                color: $color_red;
+            }
+        }
+        &::before {
+            content: "";
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            left: 0;
+        }
+    }
+    &-list {
+        z-index: 3;
+    }
+
+    &-listing {
+        padding: 100px 40px 150px;
+    }
+
+    &-content {
+        width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+
+        &.citation {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &.title_text {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &-title {
+        // font-family: "HindVadodara";
+        color: $color_white;
+        letter-spacing: 10px;
+        text-shadow: 0px 0px 60px $color_white;
+        font-size: 46px;
+        text-transform: uppercase;
+        font-family: "Hind Vadodara", sans-serif;
+
+        .title_text & {
+            margin: 0 250px 0 0;
+        }
+    }
+
+    &-text {
+        font-family: "PTSans-Regular";
+        color: $color_white;
+        font-size: 24px;
+        width: 480px;
+
+        .title_text & {
+            margin: 50px 0 0 250px;
+            width: 720px;
+        }
+
+        strong {
+            font-family: "PTSans-Bold";
+            font-weight: 700;
+        }
+    }
+
+    &-instructions {
+        z-index: -1;
+        position: fixed;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: "PTSans-Regular";
+        color: $color_white;
+        font-size: 24px;
+        font-weight: 400;
+
+        img {
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+    &-autor {
+        font-family: "PTSans-Regular";
+        color: $color_white;
+        font-size: 24px;
+        width: auto;
+    }
+
+    &-img {
+        position: absolute;
+        left: 120px;
+        z-index: -1;
+        top: 0;
+        transform: translateY(-30%);
+        width: 720px;
+        height: 600px;
+
+        .image & {
+            width: 1200px;
+            height: 720px;
+        }
+    }
+
+    &-citation {
+        font-family: "PTSans-Italic";
+        color: $color_white;
+        text-shadow: 0px 0px 60px $color_white;
+        font-size: 46px;
+        font-style: italic;
+        letter-spacing: 0.02em;
+    }
+}
+
+.swiper {
+    &-pagination {
+        width: 3px !important;
+        height: 350px !important;
+        left: 100px !important;
+        bottom: 100px !important;
+        top: auto !important;
+
+        background-color: rgba($color_blue, 0.2) !important;
+
+        &-progressbar-fill {
+            .tesla & {
+                background-color: $color_blue !important;
+            }
+            .edison & {
+                background-color: $color_red !important;
+            }
+            .westinghouse & {
+                background-color: $color_violet !important;
+            }
+        }
+    }
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    background-color: $color_bg;
+    background-image: url("./img/Pattern.svg");
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: 0.5s ease;
+
+    &.open {
+        transform: translateY(-100%);
+        opacity: 1;
+    }
+}
+
+.swiper-slide {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --------------------------------- */
+/* ---------- Generators ----------- */
+/* --------------------------------- */
+
+#debugPlus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+#tutoDC,
+#tutoAC {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &.hidden {
+        opacity: 0;
+    }
+}
+
+#bulbContinu {
+    opacity: 0;
+    transition: 5s ease;
+    &.active {
+        opacity: 1 !important;
+    }
+}
+#bulbAlternatif {
+    opacity: 0;
+    transition: 5s ease;
+    &.active {
+        opacity: 1 !important;
+    }
+}
+
+.Alternatif {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &-container {
+        width: 1320px;
+        height: 600px;
+        background-color: rgba($color_violet, 0.1);
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &::before {
+            content: "";
+            background-image: url("../img/Blur-violet.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+    &-content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transform: translateX(130px);
+    }
+
+    &-right {
+        height: 360px;
+        width: 480px;
+        padding: 50px;
+        background-color: rgba($color_black, 0.4);
+        box-shadow: 0px 0px 64px 40px rgba($color_violet, 0.1);
+    }
+}
+
+.Continue {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &-container {
+        width: 1320px;
+        height: 600px;
+        background-color: rgba($color_red, 0.1);
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &::before {
+            content: "";
+            background-image: url("../img/Blur-red.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+    &-content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transform: translateX(130px);
+    }
+
+    &-right {
+        height: 360px;
+        width: 480px;
+        padding: 50px;
+        background-color: rgba($color_black, 0.4);
+        box-shadow: 0px 0px 64px 40px rgba($color_red, 0.1);
+    }
+}
+
+#_barContinue {
+    border: solid 2px $color_white;
+    padding: 2px;
+    // position: relative;
+    display: flex;
+    justify-content: flex-start;
+
+    position: absolute;
+    width: 720px;
+    height: 20px;
+
+    top: 110px;
+}
+
+#_progressBarContinue {
+    height: 100%;
+    width: 0px;
+    transition: width 1.5s ease;
+    background-color: $color_white;
+    position: relative;
+}
+#_bar {
+    border: solid 2px $color_white;
+    padding: 2px;
+    // position: relative;
+    display: flex;
+    justify-content: flex-start;
+
+    position: absolute;
+    width: 720px;
+    height: 20px;
+
+    top: 110px;
+}
+
+#_progressBar {
+    height: 100%;
+    width: 0px;
+    transition: width 1.5s ease;
+    background-color: $color_white;
+    position: relative;
+}
